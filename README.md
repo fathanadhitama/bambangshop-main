@@ -77,6 +77,12 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. In the Observer pattern diagram explained by the Head First Design Pattern book, Subscriber is defined as an interface. Explain based on your understanding of Observer design patterns, do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough?<br>
+Answer: Pada contoh Observer pattern diagram, Subscriber diimplementasikan sebagai interface dengan tujuan mengurangi ketergantungan Publisher terhadap kelas concrete Subscriber. Dengan begitu, jika kita ingin membuat alternatif dari implementasi concrete-nya, kita tidak perlu mengubah kode yang sudah ada. Oleh karena itu, pada kasus BambangShop, walaupun menggunakan Single Model Struct sudah cukup memenuhi tujuan, implementasi Subscriber sebagai interface akan tetap lebih baik untuk meningkatkan flexibility dan maintainability dari program.
+2. id in Program and url in Subscriber is intended to be unique. Explain based on your understanding, is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently use is necessary for this case?<br>
+Answer: Penggunaan Vec untuk menyimpan id pada Product dan url pada Subscriber sangat memungkinkan dan cukup. Akan tetapi, pencarian berdasarkan kunci (id dan url) akan menggunakan kompleksitas yang lebih tinggi (O(N)) dibandingkan dengan menggunakan DashMap (O(1)). Oleh karena itu, penggunaan DashMap lebih disarankan dibandingkan Vec.
+3. When programming using Rust, we are enforced by rigorous compiler constraints to make a thread-safe program. In the case of the List of Subscribers (SUBSCRIBERS) static variable, we used the DashMap external library for thread safe HashMap. Explain based on your understanding of design patterns, do we still need DashMap or we can implement Singleton pattern instead?<br>
+Answer: Pada kasus tersebut, penggunaan DashMap akan membuat operasi pada variable statis SUBSCRIBERS dapat dilakukan dengan aman oleh beberapa thread secara bersamaan. Sementara itu, Singleton Pattern tidak selalu menjamin keamanan thread, terutama dalam kasus konkurensi. Maka dari itu, penggunaan DashMap pada kasus tersebut adalah pilihan yang lebih baik.
 
 #### Reflection Publisher-2
 
